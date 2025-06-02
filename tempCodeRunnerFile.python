@@ -1,0 +1,97 @@
+def register():
+    # def starts a function and here register is the name of the funtion
+    # it could also have been def login or def main():
+    
+    print("\n-----register---")  # this prints a  new line 
+    username = input("Enter a new Username")  # get user input 
+    password = input("Enter a new Password")
+    
+    # now we need to check if the user already exists or its a new account 
+    try:
+        with open("users.txt", "r") as file:
+            for line in file: # reads each line in file one by one (sort through the file)
+                stored_username, stored_password  = line.strip().split(",")
+                if username == stored_username and password == stored_password:
+                    print(f"Login successful! Welcome, {username}\n")
+                    return
+        print("Incorrect username or password.\n")
+    except FileNotFoundError:
+        print("No users found. Please register first.\n")
+        
+        # 'r' means read mode 'a' means append mode --- with makes sure file is properly closed 
+        # as file gives us a name to use when working with the file.
+        # when a user is registered it is saved as [username,password\n] to clean this we strip() the newline
+        #character and split the pass word and username to help identify user details
+
+def main():
+    print("Welcome to the login system")
+    
+    while True:
+        print("1. login")
+        print("2. register")
+        print("3. exit") 
+        choice = input("Enter your choice (1, 2 or 3): ")
+        
+        if choice == 1:
+            login()
+        elif choice == 2:
+            register()
+        elif choice == 3:
+            print("Goodbye!")
+            break
+        else:
+            print("Invalic choie please try again\n")
+            
+         
+def login():
+    print('oo')   
+def register():
+    # def starts a function and here register is the name of the funtion
+    # it could also have been def login or def main():
+    
+    print("\n-----register---")  # this prints a  new line 
+    username = input("Enter a new Username")  # get user input 
+    password = input("Enter a new Password")
+    
+    # now we need to check if the user already exists or its a new account 
+    try:
+        with open("users.txt", "r") as file:
+            for line in file: # reads each line in file one by one (sort through the file)
+                stored_username, stored_password  = line.strip().split(",")
+                if username == stored_username and password == stored_password:
+                    print(f"Login successful! Welcome, {username}\n")
+                    return
+        print("Incorrect username or password.\n")
+    except FileNotFoundError:
+        print("No users found. Please register first.\n")
+        
+        # 'r' means read mode 'a' means append mode --- with makes sure file is properly closed 
+        # as file gives us a name to use when working with the file.
+        # when a user is registered it is saved as [username,password\n] to clean this we strip() the newline
+        #character and split the pass word and username to help identify user details
+
+def main():
+    print("Welcome to the login system")
+    
+    while True:
+        print("1. login")
+        print("2. register")
+        print("3. exit") 
+        choice = input("Enter your choice (1, 2 or 3): ")
+        
+        if choice == 1:
+            login()
+        elif choice == 2:
+            register()
+        elif choice == 3:
+            print("Goodbye!")
+            break
+        else:
+            print("Invalic choie please try again\n")
+            
+            
+if __name__ == "__main__":
+  main()               
+
+    
+    

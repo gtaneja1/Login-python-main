@@ -1,22 +1,30 @@
 
 
-import openai
-openai.api_key = 'your-api-key'
+from random import choice
+from openai import OpenAI
+import os
+from dotenv import load_dotenv
 
-def languagetool():
-   
-    text = input("Enter your text here:\n")
+
+load_dotenv()
+client = OpenAI()
+
+
+# using chat completion API
+
+def languagetool(text):
 
     #  Send request to OpenAI for grammar correction
     prompt = (
-        "Correct the grammar, spelling, and clarity of the following text. "
-        "Return only the corrected version without explanations:\n\n"
-        f"{text}"
+        "Correct grammar and spelling"
+         "Also suggest better synonyms where appropriate. "
+        "Rewrite the following text in formal English, correcting grammar and spelling. "
+         "Return only the corrected version:\n\n"
     )
-
+   
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  
+        response = client.chat.completions.create(
+            model="gpt-4o",  
             messages=[
                 {"role": "system", "content": "You are a helpful writing assistant."},
                 {"role": "user", "content": prompt}
@@ -24,7 +32,7 @@ def languagetool():
             temperature=0.2
         )
 
-        corrected_text = response['choices'][0]['message']['content'].strip()
+        corrected_text = response.choices[0].message.content.strip()
 
         
         print("\n✅ Corrected text:")
@@ -42,3 +50,29 @@ def languagetool():
     except Exception as e:
         print("❌ Error while contacting OpenAI:", e)
         return text
+
+def open_editor(username):
+    print(f"\nWelcome, {username}!")
+    print("What would you like to do?")
+    print("1. Type new text")
+    print("2. Load from file")
+
+    choice = input("Enter 1 or 2: ").strip()
+
+    if choice == '1':
+        text = input("Type your text here:\n")
+        languagetool(text)
+
+    elif choice == '2':
+        filename = input("Type your filename (with .txt): ")
+        try:
+            with open(filename, "r") as file:
+                text = file.read()
+                print(f"\n📄 Loaded text from {filename}:\n{text}")
+                languagetool(text)
+        except FileNotFoundError:
+            print("❌ File not found.")
+
+    else:
+        print("❌ Invalid choice.")
+        return   tell me how to edit this 
